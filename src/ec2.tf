@@ -26,8 +26,8 @@ resource "aws_security_group" "api_host" {
   vpc_id      = "${aws_vpc.main.id}"
 
   ingress {
-    from_port   = 22
-    to_port     = 22
+    from_port   = 443
+    to_port     = 443
     protocol    = "tcp"
     
     // IP address, or CIDR block
