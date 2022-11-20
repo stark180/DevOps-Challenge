@@ -37,3 +37,7 @@ variable "database_subnet_cidr_block" {
    type = list(string)
    description = "Database Subnet CIDR Block"
 }
+
+variable "api_host_public_key" {
+   description = "api host public key"
+}
