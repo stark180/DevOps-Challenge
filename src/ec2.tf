@@ -1,10 +1,3 @@
-  
-# Keypair
-resource "aws_key_pair" "api_host_key" {
-  key_name   = "api_host_key"
-  public_key = "${file(var.api_host_public_key)}"
-}
-
 # api Host AMI
 data "aws_ami" "ubuntu_ami" {
   most_recent = true
@@ -25,9 +18,13 @@ data "aws_ami" "ubuntu_ami" {
 resource "aws_instance" "api_host" {
   ami           = "${data.aws_ami.ubuntu_ami.id}"
   instance_type = "t2.micro"
-  key_name      = "${aws_key_pair.api_host_key.key_name}"
+  key_name      = var.key_name
 
   vpc_security_group_ids = ["${aws_security_group.api_host.id}"]
   subnet_id              = "${element(aws_subnet.private_subnet.*.id, 1)}"
   associate_public_ip_address = true
+
+  tags = {
+    Name = "JumiaAPIec2"
+  }
 }

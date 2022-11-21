@@ -38,6 +38,12 @@ variable "database_subnet_cidr_block" {
    description = "Database Subnet CIDR Block"
 }
 
-variable "api_host_public_key" {
-   description = "api host public key"
+# key variable for refrencing 
+variable "key_name" {
+  default = "ec2Key"    
+}
+
+# base_path for refrencing 
+variable "base_path" {
+  default = "mac/Users/oscar/Documents/sshkeys/"
 }
