@@ -1,0 +1,21 @@
+- name: Provisioning Docker Container
+  host: apiserver
+  tasks:
+
+    - name: install pip3
+      apt:
+        update_catch: yes
+        name: python3-pip
+      become: yes
+
+    - name: Install Docker
+      apt: 
+        name: docker.io
+      become: yes
+
+    - name: Start Docker
+      shell: |
+        systemctl start docker
+        system enable docker
+      become: yes
+      

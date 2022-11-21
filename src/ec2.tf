@@ -21,10 +21,25 @@ resource "aws_instance" "api_host" {
   key_name      = var.key_name
 
   vpc_security_group_ids = ["${aws_security_group.api_host.id}"]
-  subnet_id              = "${element(aws_subnet.private_subnet.*.id, 1)}"
+  subnet_id              = "${element(aws_subnet.public_subnet.*.id, 1)}"
   associate_public_ip_address = true
 
   tags = {
     Name = "JumiaAPIec2"
+  }
+}
+
+# api host EC2 instance
+resource "aws_instance" "jenkins_host" {
+  ami           = "${data.aws_ami.ubuntu_ami.id}"
+  instance_type = "t2.micro"
+  key_name      = var.key_name
+
+  vpc_security_group_ids = ["${aws_security_group.api_host.id}"]
+  subnet_id              = "${element(aws_subnet.public_subnet.*.id, 1)}"
+  associate_public_ip_address = true
+
+  tags = {
+    Name = "JumiaJenkinsEC2"
   }
 }
