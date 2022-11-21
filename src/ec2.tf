@@ -21,21 +21,6 @@ data "aws_ami" "ubuntu_ami" {
   owners = ["099720109477"] # ubuntu
 }
 
-# api Host Security Group
-resource "aws_security_group" "api_host" {
-  vpc_id      = "${aws_vpc.main.id}"
-
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    
-    // IP address, or CIDR block
-    cidr_blocks = ["10.0.0.0/16"]
-  }
-
-}
-
 # api host EC2 instance
 resource "aws_instance" "api_host" {
   ami           = "${data.aws_ami.ubuntu_ami.id}"
